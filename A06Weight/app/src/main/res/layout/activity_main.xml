@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFF0000"
+            android:background="#FFFFFF00"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:text="AA" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FF00FF00"
+            android:background="#FFFF00FF"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:text="BB" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FF0000FF"
+            android:background="#FF00FFFF"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:text="CC" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFF0000"
+            android:background="#FFFFFF00"
+            android:textSize="20sp"
+            android:layout_weight="2"
+            android:text="AA" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FF00FF00"
+            android:background="#FFFF00FF"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:text="BB" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FF0000FF"
+            android:background="#FF00FFFF"
+            android:textSize="20sp"
+            android:layout_weight="1"
+            android:text="CC" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
