@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     Button button;
     Button button2;
+    Button button4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
 
         button2 = findViewById(R.id.button2);
+        button4 = findViewById(R.id.button4);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +54,19 @@ public class MainActivity extends AppCompatActivity {
                 // 이 방법은 Deprecate 되었다.
                 //startActivityForResult(intent, REQ_CODE_MENU);
 
+                startActivityResult.launch(intent);
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                ComponentName component =
+                        new ComponentName("com.kbstar.c04callintent",
+                            "com.kbstar.c04callintent.MenuActivity");
+
+                intent.setComponent(component);
                 startActivityResult.launch(intent);
             }
         });
