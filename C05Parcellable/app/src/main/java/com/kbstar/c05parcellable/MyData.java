@@ -18,6 +18,7 @@ public class MyData implements Parcelable {
     public MyData(String name, int age) {
         this.name = name;
         this.age = age;
+        System.out.println("+++ MyData(String, age) ++++++++++++" + name + ", age = " + age) ;
     }
 
     public MyData(Parcel src) {
@@ -25,9 +26,24 @@ public class MyData implements Parcelable {
         this.age = src.readInt();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     // CREATOR 상수 정의
-    public static final Parcelable.Creator CREATOR
-            = new Parcelable.Creator() {
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public MyData createFromParcel(Parcel in) {
             return new MyData(in);
         }
@@ -44,6 +60,7 @@ public class MyData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
+        parcel.writeString(name);
+        parcel.writeInt(age);
     }
 }
