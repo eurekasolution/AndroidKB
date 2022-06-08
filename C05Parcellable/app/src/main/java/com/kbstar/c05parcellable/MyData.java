@@ -60,6 +60,8 @@ public class MyData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        // 데이터 직렬화라, 이 순서가 중요!!!
+        // 이 부분의 문제였습니다.
         parcel.writeString(name);
         parcel.writeInt(age);
     }
