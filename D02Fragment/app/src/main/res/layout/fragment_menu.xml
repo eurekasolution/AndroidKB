@@ -3,21 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainFragment">
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Main Fragment"
+        android:text="Menu Fragment"
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/btnMenu"
+        android:id="@+id/btnMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GoTo Menu"
+        android:text="GoTo MAIN"
         android:textSize="24sp"/>
 
 
