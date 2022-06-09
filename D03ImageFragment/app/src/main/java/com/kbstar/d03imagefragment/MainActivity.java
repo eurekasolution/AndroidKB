@@ -8,6 +8,7 @@ import android.os.Bundle;
 public class MainActivity extends AppCompatActivity
         implements ListFragment.ImageSelectCallback {
 
+    int[] imageResourceList = {R.drawable.dream01, R.drawable.dream02, R.drawable.dream03 };
     ImageFragment imageFragment;
 
     @Override
@@ -20,11 +21,25 @@ public class MainActivity extends AppCompatActivity
         imageFragment = (ImageFragment) manager.findFragmentById(R.id.imageFragment);
     }
 
-    @Override
+
+        @Override
     public void changeImage(int index) {
+
+        imageFragment.setImage( imageResourceList[index]  );
+        /*
+        if(index == 1)
+        {
+            imageFragment.setImage(R.drawable.dream01);
+        }
         if(index == 2)
         {
-            //
+            imageFragment.setImage(R.drawable.dream02);
         }
+        if(index == 3)
+        {
+            imageFragment.setImage(R.drawable.dream03);
+        }
+
+         */
     }
 }

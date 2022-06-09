@@ -18,12 +18,16 @@ public class ListFragment extends Fragment {
     private Button button2;
     private Button button3;
 
+    private MainActivity mainActivity;
+
     // inner class 만들듯이, inner interface를 만든다.
     public static interface ImageSelectCallback {
         public void changeImage(int index);
     }
 
     public ImageSelectCallback callback;
+
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -34,6 +38,9 @@ public class ListFragment extends Fragment {
             callback = (ImageSelectCallback) context;
         }
     }
+
+
+
 
     /*
         callback 변수 자료형을 ImageSelectCallback으로 선언한 이유
@@ -57,25 +64,37 @@ public class ListFragment extends Fragment {
         button2 = view.findViewById(R.id.button2);
         button3 = view.findViewById(R.id.button3);
 
+        mainActivity = (MainActivity) getActivity();
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                if(callback != null)
+                {
+                    callback.changeImage(0);
+                }
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if(callback != null)
+                {
+                    callback.changeImage(1);
+                }
+
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(callback != null)
                 {
                     callback.changeImage(2);
                 }
-            }
-        });
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
             }
         });
 

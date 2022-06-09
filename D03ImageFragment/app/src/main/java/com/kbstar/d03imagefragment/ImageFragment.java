@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
 
 public class ImageFragment extends Fragment {
+    private ImageView imageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -18,6 +20,12 @@ public class ImageFragment extends Fragment {
 
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_image, container, false);
 
+        imageView = view.findViewById(R.id.imageView);
         return view;
+    }
+
+    public void setImage(int drawableResourceId)
+    {
+        imageView.setImageResource(drawableResourceId);
     }
 }
