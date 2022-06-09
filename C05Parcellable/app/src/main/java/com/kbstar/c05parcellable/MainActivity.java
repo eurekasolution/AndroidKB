@@ -28,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
                 MyData data = new MyData("MyKBSTAR",77);
                 intent.putExtra("dataKey", data);
 
+                MyData data2 = new MyData("국민은행",33);
+                intent.putExtra("dataKey2", data2);
+
                 Bundle bundle = intent.getExtras();
                 MyData md = bundle.getParcelable("dataKey");
-                System.out.println("XMIT ------------------- name =" + md.getName());
-                System.out.println("XMIT ------------------- age =" + md.getAge());
 
                 startActivity(intent);
             }

@@ -43,16 +43,25 @@ public class MenuActivity extends AppCompatActivity {
         {
             Bundle bundle = intent.getExtras();
             MyData data = bundle.getParcelable("dataKey");
+            MyData data2 = bundle.getParcelable("dataKey2");
             System.out.println("RCV+++++++++++++++++++++++++++++++++++++++++++");
             System.out.println("name = " + data.getName());
             System.out.println("age = " + data.getAge());
             if(data != null)
             {
-                System.out.println("--------------------------------");
-                System.out.println("name = " + data.getName());
-                System.out.println("age = " + data.getAge());
-                display.setText("이름 : " + data.getName() + "\n나이 : " + data.getAge());
+                //System.out.println("--------------------------------");
+                //System.out.println("name = " + data.getName());
+                //System.out.println("age = " + data.getAge());
+                display.setText("이름 : " + data2.getName() + "\n나이 : " + data2.getAge());
             }
+            if(data2 != null)
+            {
+                //System.out.println("--------------------------------");
+                //System.out.println("name = " + data.getName());
+                //System.out.println("age = " + data.getAge());
+                display.append("\n이름 : " + data.getName() + "\n나이 : " + data.getAge());
+            }
+
         }
     }
 }
