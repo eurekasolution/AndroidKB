@@ -15,11 +15,14 @@
 
     <EditText
         android:id="@+id/keyword"
-        android:layout_width="20dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
 
         android:text="국민은행 "
         android:hint="검색어"
+
+        android:imeActionId="1111"
+        android:imeOptions="actionDone"
         android:textSize="20sp"
         android:textColor="#FFFFFFFF" />
 
