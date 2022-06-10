@@ -1,17 +1,22 @@
-package com.kbstar.e01optionmenu;
+package com.kbstar.e03actionbarsearch;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
+    Button button;
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +24,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textView = findViewById(R.id.textView);
+        button = findViewById(R.id.button);
+        actionBar = getSupportActionBar();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actionBar.setLogo(R.drawable.home);
+                actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP|ActionBar.DISPLAY_USE_LOGO);
+                //actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP|ActionBar.DISPLAY_SHOW_TITLE);
+                //actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP);
+
+                /*
+                DISPLAY_XXXX
+                       DISPLAY_USE_LOGO : 아이콘 부분에 로고 아이콘
+                               SHOW_HOME : 홈 아이콘 표시
+                               HOME_AS_UP : <
+                               SHOW_TITLE : 타이틀
+                 */
+            }
+        });
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 showToast("Unknown Menu Selected");
                 textView.setText("모름름");
-               break;
+                break;
         }
 
         /*

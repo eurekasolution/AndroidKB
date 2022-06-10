@@ -14,13 +14,13 @@
         android:id="@+id/menu_search"
         android:title="검색"
         android:icon="@drawable/menu_search"
-        app:showAsAction="always"
+        app:showAsAction="always|withText"
         />
     <item
         android:id="@+id/menu_settings"
         android:title="설정"
         android:icon="@drawable/menu_settings"
-        app:showAsAction="always"
+        app:showAsAction="never"
         />
 
 </menu>
