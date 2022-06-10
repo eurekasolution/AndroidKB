@@ -30,11 +30,10 @@ public class MainActivity extends AppCompatActivity {
         fragment3 = new Fragment3();
 
 
-        //setSupportActionBar(toolBar);
-        this.setSupportActionBar(toolBar);
+        setSupportActionBar(toolBar);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(true);
 
         getSupportFragmentManager()
                 .beginTransaction()
