@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    
+
     public void changeImage(int index) {
 
         imageFragment.setImage( imageResourceList[index]  );

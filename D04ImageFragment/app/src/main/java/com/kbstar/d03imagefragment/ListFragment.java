@@ -39,12 +39,7 @@ public class ListFragment extends Fragment {
         }
     }
 
-     */
 
-
-
-
-    /*
         callback 변수 자료형을 ImageSelectCallback으로 선언한 이유
             선택한것에 따라 다른 Fragment 이미지 변경하려고 한다.
             액티비티(프레그먼트1, 2 포함)한테 데이터를 전달해야 한다.
@@ -71,24 +66,19 @@ public class ListFragment extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                    mainActivity.changeImage(0);
-
+                mainActivity.changeImage(0);
             }
         });
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                mainActivity.changeImage(1);
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                    mainActivity.changeImage(2);
-
+                mainActivity.changeImage(2);
             }
         });
 
