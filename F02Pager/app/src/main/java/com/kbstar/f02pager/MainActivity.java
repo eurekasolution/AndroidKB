@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ViewPager2 pager;
+    private ViewPager pager;
 
     private Fragment1 fragment1;
     private Fragment2 fragment2;
@@ -50,12 +51,13 @@ public class MainActivity extends AppCompatActivity {
         adapter.addItem(fragment2);
         adapter.addItem(fragment3);
 
+        pager.setAdapter(adapter);
         button = findViewById(R.id.button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                pager.setCurrentItem(1);
             }
         });
 
