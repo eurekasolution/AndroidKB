@@ -1,4 +1,4 @@
-package com.kbstar.f02pager;
+package com.kbstar.f03drawer;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
