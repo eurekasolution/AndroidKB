@@ -1,4 +1,4 @@
-package com.kbstar.f01bottomnavi;
+package com.kbstar.f02pager;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
