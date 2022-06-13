@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button button;
 
+    private int currentPage = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,11 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pager.setCurrentItem(1);
+                currentPage = (pager.getCurrentItem() +1) % (adapter.getCount());
+
+                pager.setCurrentItem(currentPage);
+
+
             }
         });
 
