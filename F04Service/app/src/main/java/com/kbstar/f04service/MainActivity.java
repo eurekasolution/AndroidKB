@@ -36,5 +36,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // 하고싶은 일이 있으면..추가
+        // 액티비티가 새로 만들어질 때 전달될 인텐트
+        Intent newIntent = getIntent();
+        processIntent(newIntent);
+
+    }
+
+    private void processIntent(Intent intent)
+    {
+        if(intent != null)
+        {
+            String cmd = intent.getStringExtra("cmd"); // display
+            String msg = intent.getStringExtra("msg"); // from MyService
+            editText.setText(msg);
+        }
+    }
+
+    // 액티비티가 이미 만들어져 있을 때 전달된 인텐트 처리를 위한 재사용
+    @Override
+    protected void onNewIntent(Intent intent) {
+        processIntent(intent);
+        super.onNewIntent(intent);
     }
 }

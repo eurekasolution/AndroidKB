@@ -57,6 +57,22 @@ public class MyService extends Service {
             }
             Log.d(TAG, "------------------------- count : " + i);
         }
+
+        // MainActivity한테 알려주기..
+        Intent displayIntent = new Intent(
+                                    getApplicationContext(),
+                                    MainActivity.class
+                                );
+        // intent flag
+        displayIntent.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP
+        );
+        displayIntent.putExtra("cmd", "display");
+        displayIntent.putExtra("msg", "from MyService");
+
+        startActivity(displayIntent);
     }
 
     @Override
