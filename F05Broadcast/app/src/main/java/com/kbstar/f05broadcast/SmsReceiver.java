@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SmsReceiver extends BroadcastReceiver {
@@ -17,7 +18,8 @@ public class SmsReceiver extends BroadcastReceiver {
     // 문자메시지를 받으면 자동으로 호출
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "----------------------------- onReceive()");
+        Log.d(TAG, "++++++++++++++++++++++++++++++ onReceive()");
+        Log.e(TAG, "----------------------------- onReceive()");
 
         Bundle bundle = intent.getExtras();
         SmsMessage[] messages = parseSmsMessage(bundle);
@@ -33,9 +35,28 @@ public class SmsReceiver extends BroadcastReceiver {
             Date time = new Date(messages[0].getTimestampMillis());
             Log.i(TAG, "------------------------- time : " + time);
 
+            startSMSActivity(context, sender, msg, time );
+
         }
 
 
+    }
+
+    private void startSMSActivity(Context context, String sender, String msg, Date time)
+    {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Intent intent = new Intent(context, SmsActivity.class);
+        intent.putExtra("sender", sender);
+        intent.putExtra("msg", msg);
+        intent.putExtra("time", format.format(time));
+        // YYYY-MM-DD HH:MM:SS
+
+        // intent의 FLAG 설정
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        context.startActivity(intent);
 
     }
 
