@@ -20,9 +20,7 @@ public class PersonAdapter
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // person_item.xml 파일로 inflate
-
-        Log.d("RView", "------------------------------------ onCreateViewHolder()");
-        LayoutInflater inflater
+       LayoutInflater inflater
                 = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(
                                 R.layout.person_item ,
@@ -44,9 +42,31 @@ public class PersonAdapter
         return items.size();
     }
 
+    // Main같이 외부에서 API
     public void addItem(Person person)
     {
         items.add(person);
+    }
+
+    public void setItem(int idx, Person person)
+    {
+        items.set(idx, person);
+    }
+
+    public void removeItem(int idx)
+    {
+        items.remove(idx);
+    }
+
+    public Person getItem(int idx)
+    {
+        return items.get(idx);
+    }
+
+    // 한번에 리스트 형태를 만들어서 넣기
+    public void setItems(ArrayList<Person> items)
+    {
+        this.items =  items;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder

@@ -31,6 +31,23 @@ public class MainActivity extends AppCompatActivity {
         adapter.addItem(new Person("이순신", "010-2222-2222"));
         adapter.addItem(new Person("이순신1", "010-2222-2222"));
 
+        adapter.addItem(new Person("홍길동", "010-1111-1111"));
+        adapter.addItem(new Person("이순신", "010-2222-2222"));
+        adapter.addItem(new Person("이순신1", "010-2222-2222"));
+
+        adapter.addItem(new Person("홍길동", "010-1111-1111"));
+        adapter.addItem(new Person("이순신", "010-2222-2222"));
+        adapter.addItem(new Person("이순신1", "010-2222-2222"));
+
+        adapter.addItem(new Person("홍길동", "010-1111-1111"));
+        adapter.addItem(new Person("이순신", "010-2222-2222"));
+        adapter.addItem(new Person("이순신1", "010-2222-2222"));
+
+        adapter.addItem(new Person("홍길동", "010-1111-1111"));
+        adapter.addItem(new Person("이순신", "010-2222-2222"));
+        adapter.addItem(new Person("이순신1", "010-2222-2222"));
+
+
         recyclerView.setAdapter(adapter);
 
     }
