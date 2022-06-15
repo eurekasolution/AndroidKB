@@ -1,49 +1,73 @@
 package com.kbstar.h02recyclerview;
 
-import android.content.Context;
-import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class Person {
-    private String name;
-    private String mobile;
-    private int image;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-    public Person()
+import java.util.ArrayList;
+
+public class PersonAdapter
+        extends RecyclerView.Adapter<PersonAdapter.ViewHolder>{
+
+    private ArrayList<Person> items = new ArrayList<Person>();
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // person_item.xml 파일로 inflate
+
+        Log.d("RView", "------------------------------------ onCreateViewHolder()");
+        LayoutInflater inflater
+                = LayoutInflater.from(parent.getContext());
+        View itemView = inflater.inflate(
+                                R.layout.person_item ,
+                                parent,
+                                false);
+
+        return new ViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Person item = items.get(position);
+        Log.d("RView", "------------------------------------ position = " + position);
+        holder.setItem(item);
+    }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+    public void addItem(Person person)
     {
-        this("No Name", "010-0000-0000");
+        items.add(person);
     }
 
-    public Person(String name, String mobile)
+    static class ViewHolder extends RecyclerView.ViewHolder
     {
-        this.name = name;
-        this.mobile = mobile;
-    }
+        TextView textView;
+        TextView textView2;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+        public ViewHolder(View itemView)
+        {
+            super(itemView);
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+            Log.d("RView", "------------------------------------ ViewHolder()");
+            // 뷰객체내에 있는 이름, 전화객체를 참조
+            textView = itemView.findViewById(R.id.textView);
+            textView2 = itemView.findViewById(R.id.textView2);
+        }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public int getImage() {
-        return image;
+        public void setItem(Person item)
+        {
+            textView.setText(item.getName());
+            textView2.setText(item.getMobile());
+        }
     }
 }

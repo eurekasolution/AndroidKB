@@ -1,68 +1,49 @@
-package com.kbstar.h01card;
+package com.kbstar.h02recyclerview;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+public class Person {
+    private String name;
+    private String mobile;
+    private int image;
 
-public class Layout1 extends LinearLayout {
-    ImageView imageView;
-    TextView textView;
-    TextView textView2;
-
-
-
-    public Layout1(Context context)
+    public Person()
     {
-        super(context);
-        init(context);
+        this("No Name", "010-0000-0000");
     }
 
-    public Layout1(Context context, AttributeSet attrs)
+    public Person(String name, String mobile)
     {
-        super(context, attrs);
-        init(context);
+        this.name = name;
+        this.mobile = mobile;
     }
 
-    private void init(Context context)
-    {
-        LayoutInflater inflater
-                = ( LayoutInflater )
-                context.getSystemService(
-                        Context.LAYOUT_INFLATER_SERVICE
-                );
-
-        inflater.inflate(R.layout.layout1, this, true);
-
-        imageView = findViewById(R.id.imageView);
-        textView = findViewById(R.id.textView);
-        textView2 = findViewById(R.id.textView2);
-
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setName(String name)
-    {
-        textView.setText(name);
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public void setImage(int resourceId)
-    {
-        imageView.setImageResource(resourceId);
+    public void setImage(int image) {
+        this.image = image;
     }
 
-    public void setMobile(String mobile)
-    {
-        textView2.setText(mobile);
+    public String getName() {
+        return name;
     }
 
-    public String getName()
-    {
-        return textView.getText().toString();
+    public String getMobile() {
+        return mobile;
     }
 
+    public int getImage() {
+        return image;
+    }
 }

@@ -15,6 +15,8 @@ public class Layout1 extends LinearLayout {
     TextView textView;
     TextView textView2;
 
+
+
     public Layout1(Context context)
     {
         super(context);
@@ -41,6 +43,26 @@ public class Layout1 extends LinearLayout {
         textView = findViewById(R.id.textView);
         textView2 = findViewById(R.id.textView2);
 
+    }
+
+    public void setName(String name)
+    {
+        textView.setText(name);
+    }
+
+    public void setImage(int resourceId)
+    {
+        imageView.setImageResource(resourceId);
+    }
+
+    public void setMobile(String mobile)
+    {
+        textView2.setText(mobile);
+    }
+
+    public String getName()
+    {
+        return textView.getText().toString();
     }
 
 }
