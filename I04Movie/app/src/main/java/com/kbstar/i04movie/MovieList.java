@@ -1,4 +1,4 @@
-package com.kbstar.i03json;
+package com.kbstar.i04movie;
 
 public class MovieList {
     MovieListResult boxOfficeResult;

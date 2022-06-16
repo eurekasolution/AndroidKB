@@ -1,4 +1,4 @@
-package com.kbstar.i03json;
+package com.kbstar.i04movie;
 
 public class Movie {
     String rnum;
@@ -20,4 +20,13 @@ public class Movie {
     String scrnCnt;
     String showCnt;
 
+    public String getTitle()
+    {
+        return this.movieNm;
+    }
+
+    public String getAudiCount()
+    {
+        return this.audiCnt;
+    }
 }
