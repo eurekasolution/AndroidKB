@@ -59,6 +59,13 @@ public class MovieAdapter
         items.remove(idx);
     }
 
+    public void removeAllItems() {
+        for(int i=items.size()-1; i>=0; i--)
+        {
+            items.remove(i);
+        }
+    }
+
     public Movie getItem(int idx)
     {
         return items.get(idx);

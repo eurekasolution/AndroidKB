@@ -27,6 +27,6 @@ public class Movie {
 
     public String getAudiCount()
     {
-        return this.audiCnt;
+        return this.audiAcc;
     }
 }

@@ -1,6 +1,7 @@
 package com.kbstar.i04movie;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,6 +21,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private EditText input;
@@ -68,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
     public void process() {
         String url = input.getText().toString();
 
+        adapter.removeAllItems();
+
+
         StringRequest request = new StringRequest(
                 Request.Method.GET,
                 url,
@@ -86,7 +94,14 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("MOVIE", "-------- Error Response : "+error.getMessage());
                     }
                 }
-        );
+        ){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
 
         request.setShouldCache(false);
         requestQueue.add(request);
@@ -95,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void processJson(String jsonData)
     {
+
         Gson gson = new Gson();
         MovieList movieList = gson.fromJson(jsonData, MovieList.class);
 
@@ -103,5 +119,8 @@ public class MainActivity extends AppCompatActivity {
             Movie movie = movieList.boxOfficeResult.dailyBoxOfficeList.get(i);
             adapter.addItem(movie);
         }
+
+        Log.d("MOVIE", "------------------------ 값 가져옴..");
+        adapter.notifyDataSetChanged();
     }
 }
