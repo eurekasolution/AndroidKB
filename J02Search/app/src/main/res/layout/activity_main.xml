@@ -51,6 +51,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="make Table" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Search" />
+
+
     </LinearLayout>
 
     <ScrollView

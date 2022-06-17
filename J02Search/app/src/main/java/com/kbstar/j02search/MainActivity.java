@@ -3,6 +3,7 @@ package com.kbstar.j02search;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     EditText inputTable;
     Button btnDB;
     Button btnTable;
+    Button btnSearch;
 
     TextView debugText;
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         inputTable = findViewById(R.id.inputTable);
         btnDB = findViewById(R.id.btnDB);
         btnTable = findViewById(R.id.btnTable);
+        btnSearch = findViewById(R.id.btnSearch);
         debugText = findViewById(R.id.debugText);
 
         btnDB.setOnClickListener(new View.OnClickListener() {
@@ -69,8 +72,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search();
+
+            }
+        });
+
     }
 
+    public void search()
+    {
+        printDebug("Search..");
+        String sql = "select * from  " + table + " order by idx desc";
+        Cursor cursor = db.rawQuery(sql, null);
+        int dataCount = cursor.getCount();
+        printDebug("data count = " + dataCount);
+
+        for(int i = 0 ; i<dataCount; i++)
+        {
+            cursor.moveToNext();
+
+            int idx = cursor.getInt(0);
+            String name = cursor.getString(1);
+            int age = cursor.getInt(2);
+            String mobile = cursor.getString(3);
+
+            String data = "";
+            data = idx + "\t" + name + "\t" + age + "\t" + mobile;
+            printDebug(data);
+
+        }
+
+        cursor.close();
+    }
     public void printDebug(String msg)
     {
         debugText.append(msg + "\n");
@@ -104,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         {
             String sql = "";
             sql = " CREATE TABLE if not exists " + table + "("
-                    + "idx integer auto_increment, "
+                    + "idx integer , "
                     + "name text, "
                     + "age integer, "
                     + "mobile text, "
@@ -121,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
     public void insert()
     {
         String sql = "INSERT INTO " + table
-                + " (name, age) VALUES ('김국민', '12') ";
+                + " (name, age, mobile) VALUES ('김국민', '12', '010-1111-1111') ";
 
         if(db == null)
         {
