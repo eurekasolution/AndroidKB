@@ -1,4 +1,4 @@
-package com.kbstar.j01helper;
+package com.kbstar.j02search;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        printLog("onCreate()");
+        printLog("onCreate() Helper");
 
         String sql = "create table if not exists  user_table ( "
                 + " idx integer ,  "
