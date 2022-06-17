@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     TextView debugText;
 
     SQLiteDatabase db;
+    String table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         btnTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createTable(inputTable.getText().toString());
+                table = inputTable.getText().toString();
+                createTable();
 
             }
         });
@@ -73,22 +75,47 @@ public class MainActivity extends AppCompatActivity {
         db = openOrCreateDatabase(dbName, MODE_PRIVATE, null);
         printDebug("DB Created ... : " + dbName );
     }
-    public void createTable(String tableName)
+    public void createTable()
     {
         if(db == null)
         {
             printDebug("NO DATABASE SELECTED!!!");
         }else
         {
-            db.execSQL(" CREATE TABLE if not exists " + tableName + "("
-                        + "idx integer auto_increment, "
-                        + "name text, "
-                        + "age integer, "
-                        + "primary key(idx)"
-                    + ")"
-            );
+            String sql = "";
+            sql = " CREATE TABLE if not exists " + table + "("
+                    + "idx integer auto_increment, "
+                    + "name text, "
+                    + "age integer, "
+                    + "primary key(idx)"
+                    + ")";
+            db.execSQL(sql);
 
-            printDebug("TABLE CREATED !!!! : " + tableName);
+            printDebug("TABLE CREATED !!!! : " + table);
+
+            insert();
         }
+    }
+
+    public void insert()
+    {
+        String sql = "INSERT INTO " + table
+                + " (name, age) VALUES ('김국민', '12') ";
+
+        if(db == null)
+        {
+            printDebug("선택된 DB 없음.");
+            return;
+        }
+
+        if(table == null)
+        {
+            printDebug("테이블 없음 : " + table);
+            return;
+        }
+
+        db.execSQL(sql);
+        printDebug("Record 추가 됨. ");
+
     }
 }
