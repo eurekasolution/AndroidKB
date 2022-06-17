@@ -1,4 +1,4 @@
-package com.kbstar.j02search;
+package com.kbstar.j03provider;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,11 +8,32 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static String dbName = "kbstar.db";
+
+
+    public static String DB = "member.db";
     public static int VERSION = 1;
 
+    public static final String IDX = "idx";
+    public static final String NAME = "name";
+    public static final String AGE = "age";
+    public static final String MOBILE = "mobile";
+
+    public static final String TABLE = "member";
+
+    public static final String[] DBCOLUMNS = {IDX, NAME, AGE, MOBILE };
+
+    public static final String CREATE
+            = "CREATE table " + TABLE + "("
+                   + IDX + " INTEGER, "
+                   + NAME + " TEXT, "
+                   + AGE + " INTEGER, "
+                   + MOBILE + " TEXT, "
+                    + " primary key(" + IDX + ")"
+              + ")";
+
+
     public DatabaseHelper(@Nullable Context context) {
-        super(context, dbName, null, VERSION);
+        super(context, DB, null, VERSION);
     }
 
     public DatabaseHelper(@Nullable Context context, @Nullable String name, int version) {
@@ -22,15 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         printLog("onCreate() Helper");
-
-        String sql = "create table if not exists  user_table ( "
-                + " idx integer ,  "
-                + " name text, "
-                + " age integer, "
-                + " mobile text ,"
-                + " primary key(idx) "
-                + ")";
-        db.execSQL(sql);
+        db.execSQL(CREATE); // create table ...
     }
 
     @Override
@@ -39,10 +52,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if(newVersion >1)
         {
-            db.execSQL("Drop table if exists " + dbName);
-            String sql = "ALTER TABLE user_table "
-                    + " add mobile text after age ";
-            db.execSQL(sql);
+            db.execSQL("Drop table if exists " + DB);
+
+            db.execSQL(CREATE);
         }
 
     }
