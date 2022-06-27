@@ -74,7 +74,21 @@ public class MainActivity extends AppCompatActivity {
             Socket serverSocket = new Socket("localhost", serverPort);
 
             printClient("서버에 접속했습니다.");
-            
+
+            ObjectOutputStream outStream = new ObjectOutputStream(
+                    serverSocket.getOutputStream()
+            );
+            outStream.writeObject(data);
+            outStream.flush();
+            printClient("SEND : " + data);
+
+            ObjectInputStream inStream = new ObjectInputStream(
+                    serverSocket.getInputStream()
+            );
+            Object obj = inStream.readObject();
+            printClient("RCV : " + obj);
+
+            serverSocket.close();
 
         }catch(Exception e) {
             Log.d(TAG, "Client Exception : " + e.getMessage());
@@ -119,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         }catch (Exception e) {
             Log.d(TAG, "startServer Exception");
+            printServer("Exception : " + e.getMessage());
         }
     }
 
