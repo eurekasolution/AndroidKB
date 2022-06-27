@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -20,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnSend, btnStart;
     private EditText clientInput;
     private TextView clientDisplay, serverDisplay;
+
+    private int serverPort = 10001;
 
     Handler handler = new Handler();
 
@@ -64,15 +69,53 @@ public class MainActivity extends AppCompatActivity {
 
     private void sendData(String data)
     {
+        // serverPort
+        try {
+            Socket serverSocket = new Socket("localhost", serverPort);
 
+            printClient("서버에 접속했습니다.");
+            
+
+        }catch(Exception e) {
+            Log.d(TAG, "Client Exception : " + e.getMessage());
+        }
     }
 
     private void startServer()
     {
-        int serverPort = 10001;
+
         try {
             ServerSocket server = new ServerSocket(serverPort);
             printServer("Server Start : #"+ serverPort);
+
+            while(true)
+            {
+                // 1.2.3.4:12345
+
+                printServer("Listen ...... #"+serverPort);
+                Socket clientSocket = server.accept();
+
+                InetAddress clientAddress = clientSocket.getLocalAddress();
+                int clientPort = clientSocket.getPort();
+
+                printServer("Accepted ... " + clientAddress + ":" + clientPort);
+
+                ObjectInputStream inStream = new ObjectInputStream(
+                                                    clientSocket.getInputStream()
+                                                );
+                Object obj = inStream.readObject();
+                printServer("RCV : " + obj);
+
+                ObjectOutputStream outStream = new ObjectOutputStream(
+                                                    clientSocket.getOutputStream()
+                                                );
+                outStream.writeObject(obj + " from Server");
+                outStream.flush();
+
+                printServer("ECHO SENDED");
+                clientSocket.close();
+                printServer("socket closed..");
+            }
 
         }catch (Exception e) {
             Log.d(TAG, "startServer Exception");
