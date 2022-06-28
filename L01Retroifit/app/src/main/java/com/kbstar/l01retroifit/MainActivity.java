@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                display.setText("");
+                display.append("call request get List\n");
 
+                requestGet();
             }
         });
 
@@ -48,6 +53,24 @@ public class MainActivity extends AppCompatActivity {
                 display.append("call request post\n");
 
                 requestPost();
+            }
+        });
+    }
+
+    public void requestGet()
+    {
+        Call<ResUserData> call = api.requestGetUsers("2");
+        call.enqueue(new Callback<ResUserData>(){
+            @Override
+            public void onResponse(Call<ResUserData> call, Response<ResUserData> response) {
+                Log.d(TAG, "OK get List");
+                display.setText("");
+                display.append(response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<ResUserData> call, Throwable t) {
+                Log.d(TAG, "onFailure while get List");
             }
         });
     }
@@ -65,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "POST OK Response");
                 Log.d(TAG, response.body().toString());
 
-                display.append("End of onResponse()");
+                display.append("token = " + response.body().getToken() + "\n");
+
+                display.append("End of onResponse()\n");
             }
 
             @Override

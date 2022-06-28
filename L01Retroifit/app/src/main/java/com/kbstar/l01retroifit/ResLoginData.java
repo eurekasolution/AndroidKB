@@ -8,6 +8,11 @@ public class ResLoginData {
     @Expose
     private String token;
 
+    public String getToken() {
+        return token;
+    }
+
+
     @Override
     public String toString() {
         return "ResLoginData{" +

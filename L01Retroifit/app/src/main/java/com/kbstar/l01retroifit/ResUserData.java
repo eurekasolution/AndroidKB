@@ -69,4 +69,15 @@ public class ResUserData {
         }
     }
 
+    @Override
+    public String toString() {
+        return "ResUserData{" +
+                "page=" + page +
+                ", perPage=" + perPage +
+                ", total=" + total +
+                ", totalPage=" + totalPage +
+                ", data=" + data +
+                ", support=" + support +
+                '}';
+    }
 }
