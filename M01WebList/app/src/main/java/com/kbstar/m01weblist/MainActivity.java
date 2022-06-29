@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         arrayList = new ArrayList<>();
         adapter = new UserAdapter(this, arrayList);
+        recyclerView.setAdapter(adapter);
 
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
                 display.setText("Start Get List ...\n");
                 arrayList.clear();
+                adapter.notifyDataSetChanged();
 
                 GetData task = new GetData();
                 task.execute(SERVER_URL, "NOPARAM");
@@ -67,10 +72,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
         }
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
+
 
         @Override
         protected String doInBackground(String... params) {
@@ -128,6 +130,59 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
 
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+
+            if(response != null)
+            {
+                display.setText(response);
+                jsonString = response;
+                showList();
+            }
+
+        }
+    }
+
+    public void showList()
+    {
+        // jsonString, kbusers
+        String JSON_TAG = "kbusers";
+        String JSON_TAG_IDX = "idx";
+        String JSON_TAG_NAME = "name";
+        String JSON_TAG_ID = "id";
+        String JSON_TAG_LEVEL = "level";
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray(JSON_TAG);
+
+            Log.d(TAG, "json list length = " + jsonArray.length());
+
+            for(int i=0; i<jsonArray.length(); i++)
+            {
+                JSONObject item = jsonArray.getJSONObject(i);
+
+
+                UserData userData = new UserData();
+
+                userData.setUserIdx( item.getString(JSON_TAG_IDX) );
+                userData.setUserName( item.getString(JSON_TAG_NAME) );
+                userData.setUserId( item.getString(JSON_TAG_ID) );
+                userData.setUserLevel( item.getString( JSON_TAG_LEVEL) );
+
+                Log.d(TAG, " i = " + i + ", name =" + item.getString(JSON_TAG_NAME));
+
+                arrayList.add(userData);
+                adapter.notifyDataSetChanged(); // 새로고침
+            }
+
+            Log.d(TAG, "array List size = " + arrayList.size());
+        }catch (Exception e)
+        {
+            Log.d(TAG, "Exception : " + e.getMessage());
         }
     }
 
