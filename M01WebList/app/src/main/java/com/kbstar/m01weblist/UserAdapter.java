@@ -1,11 +1,18 @@
 package com.kbstar.m01weblist;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,6 +74,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.DataViewHolder
 
         //holder.tv_level.setText( userList.get(pos).getUserLevel());
         holder.tv_level.setText( printLevel );
+
+        holder.tv_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("XXXXX", "click idx = " + holder.tv_idx.getText().toString());
+
+                Intent intent = new Intent(context, InfoActivity.class);
+                intent.putExtra("idx", holder.tv_idx.getText().toString());
+                context.startActivity(intent);
+
+            }
+        });
+
     }
 
     @Override
