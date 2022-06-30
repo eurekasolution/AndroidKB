@@ -10,12 +10,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class InfoActivity extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class InfoActivity extends AppCompatActivity {
+    private String TAG = "InfoActivity";
     private TextView tv_id, tv_name, tv_idx, tv_level;
     private Button btnClose;
     private TextView display;
 
+    private String jsonString;
     private String extraIdx;
     private String SERVER_URL = "http://10.5.5.200:8080/android/info.php";
 
@@ -63,13 +74,93 @@ public class InfoActivity extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... strings) {
-            return null;
+        protected String doInBackground(String... params) {
+
+            Log.d(TAG, "Param 1 : " + params[1]);
+
+            String serverURL = params[0];
+            String postParam = "idx=" + params[1];
+            try {
+                URL url = new URL(serverURL);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                connection.setConnectTimeout(5000);
+                connection.setRequestMethod("POST");
+
+                connection.connect();
+
+                OutputStream outputStream = connection.getOutputStream();
+                outputStream.write(postParam.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int resCode = connection.getResponseCode();
+                Log.d(TAG, "Responce Code = " + resCode);
+
+                InputStream inputStream;
+
+                if(resCode == HttpURLConnection.HTTP_OK)
+                    inputStream = connection.getInputStream();
+                else
+                    inputStream = connection.getErrorStream();
+
+                InputStreamReader isr = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader br = new BufferedReader(isr);
+                //BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+
+                //StringBuilder sb = new StringBuilder();
+                String rcvString = "";
+                String line = "";
+
+
+                while((line=br.readLine()) != null)
+                {
+                    rcvString = rcvString + line;
+                    //sb.append(line);
+                    Log.d(TAG, line);
+                }
+
+                br.close();
+                return rcvString;
+
+            }catch(Exception e)
+            {
+                Log.d(TAG, "Exception : " + e.getMessage());
+                return null;
+            }
+
         }
 
+
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+
+            jsonString = response;
+            showData();
+        }
+    }
+
+    public void showData()
+    {
+        // jsonString, kbusers
+        String JSON_TAG = "kbusers";
+        String JSON_TAG_IDX = "idx";
+        String JSON_TAG_NAME = "name";
+        String JSON_TAG_ID = "id";
+        String JSON_TAG_LEVEL = "level";
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+
+            tv_idx.setText( jsonObject.getString(JSON_TAG_IDX) );
+            tv_id.setText( jsonObject.getString(JSON_TAG_ID) );
+            tv_name.setText( jsonObject.getString(JSON_TAG_NAME) );
+            tv_level.setText( jsonObject.getString(JSON_TAG_LEVEL) );
+
+        }catch (Exception e)
+        {
+            Log.d(TAG, "Exception : " + e.getMessage());
         }
     }
 }
