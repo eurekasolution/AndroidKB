@@ -27,11 +27,25 @@ public class MainActivity extends AppCompatActivity {
                 gotoRegist();
             }
         });
+
+        btnGoLogin = findViewById(R.id.btnGoLogin);
+        btnGoLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoLogin();
+            }
+        });
     }
 
     public void gotoRegist()
     {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void gotoLogin()
+    {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
 }

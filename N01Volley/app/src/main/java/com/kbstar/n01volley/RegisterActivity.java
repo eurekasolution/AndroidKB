@@ -2,6 +2,9 @@ package com.kbstar.n01volley;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +52,21 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, "OK Response = " + response);
+
+                        new AlertDialog.Builder(RegisterActivity.this)
+                                .setTitle("회원가입 결과")
+                                .setMessage("회원가입이 완료되었습니다.")
+                                .setPositiveButton("확인1", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                })
+                                .setNegativeButton("취소", null)
+                                .show();
+
                     }
                 };
         Response.ErrorListener errorListener = new Response.ErrorListener() {
