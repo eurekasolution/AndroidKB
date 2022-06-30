@@ -25,6 +25,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText inputId,inputName, inputPass;
     private Button btnLogin;
     Boolean isSuccess = false;
+    private static String LOGIN_ID;
+    private static String LOGIN_NAME;
+    private static String LOGIN_LEVEL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,18 +68,15 @@ public class LoginActivity extends AppCompatActivity {
                             {
                                 printSuccessFail = "성공";
                                 isSuccess = true;
+
+                                LOGIN_ID = jsonObject.getString("id");
+                                LOGIN_NAME = jsonObject.getString("name");
+                                LOGIN_LEVEL = jsonObject.getString("level");
+
                             }else
                             {
                                 printSuccessFail = "실패";
                                 isSuccess = false;
-                            }
-
-                            if(isSuccess)
-                            {
-
-                            }else
-                            {
-
                             }
 
                             new AlertDialog.Builder(LoginActivity.this)
@@ -87,6 +87,9 @@ public class LoginActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             if(isSuccess) {
                                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                intent.putExtra("LOGIN_ID", LOGIN_ID );
+                                                intent.putExtra("LOGIN_NAME", LOGIN_NAME );
+                                                intent.putExtra("LOGIN_LEVEL", LOGIN_LEVEL );
                                                 startActivity(intent);
                                                 finish();
                                             }else
