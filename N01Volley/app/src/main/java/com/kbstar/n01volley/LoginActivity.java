@@ -17,11 +17,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONObject;
+
 public class LoginActivity extends AppCompatActivity {
 
     private String TAG = "Volley-RegisterActivity";
     private EditText inputId,inputName, inputPass;
     private Button btnLogin;
+    Boolean isSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +54,59 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.d(TAG, "OK Response = " + response);
 
-                        new AlertDialog.Builder(LoginActivity.this)
-                                .setTitle("로그인 결과")
-                                .setMessage("로그인 성공했습니다.")
-                                .setPositiveButton("확인1", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                })
-                                .setNegativeButton("취소", null)
-                                .show();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String loginResult = jsonObject.getString("result");
+
+                            String printSuccessFail = "";
+
+
+                            if(loginResult.equals("1"))
+                            {
+                                printSuccessFail = "성공";
+                                isSuccess = true;
+                            }else
+                            {
+                                printSuccessFail = "실패";
+                                isSuccess = false;
+                            }
+
+                            if(isSuccess)
+                            {
+
+                            }else
+                            {
+
+                            }
+
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setTitle("로그인 결과")
+                                    .setMessage("로그인 " + printSuccessFail + "했습니다.")
+                                    .setPositiveButton("확인1", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            if(isSuccess) {
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }else
+                                            {
+                                                inputId.setText("");
+                                                inputPass.setText("");
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton("취소", null)
+                                    .show();
+
+                        }catch(Exception e)
+                        {
+
+                        }
+
+
+
+
 
                     }
                 };
