@@ -12,9 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     GoogleMap map;
     SupportMapFragment mapFragment;
+    MarkerOptions myMarker;
 
 
     @Override
@@ -148,9 +153,11 @@ public class MainActivity extends AppCompatActivity {
             Double lat = location.getLatitude();
             Double lon = location.getLongitude();
 
-            printDebug("현재 위치");
+            printDebug("현재 위치2");
             printDebug("Lat : " + lat);
             printDebug("Lon : " + lon);
+
+            move2MyLocation(lat, lon);
         }
 
         @Override
@@ -172,5 +179,24 @@ public class MainActivity extends AppCompatActivity {
         public void onProviderDisabled(@NonNull String provider) {
             //LocationListener.super.onProviderDisabled(provider);
         }
+    }
+
+    public void move2MyLocation(double lat, double lon)
+    {
+        LatLng point = new LatLng(lat, lon);
+
+        printDebug("Move lat = " + lat + ", lon = " + lon);
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(point, 13));
+
+        // 내 위치에 핀박기
+        setPin(point);
+    }
+
+    public void setPin(LatLng point)
+    {
+        myMarker = new MarkerOptions();
+        myMarker.icon(BitmapDescriptorFactory.fromResource(R.drawable.pin));
+        myMarker.position(point);
+        map.addMarker(myMarker);
     }
 }

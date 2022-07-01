@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.O02GoogleMap">
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCRgQ9SHpyxdedjvHgnAYFg6w3rlM9Czx8" />
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="키값입력" />
 
         <activity
             android:name=".MainActivity"
