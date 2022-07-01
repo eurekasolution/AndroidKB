@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         }catch(Exception e)
                         {
-
+                            Log.d("JSONERROR", e.getMessage());
                         }
 
 
